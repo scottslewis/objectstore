@@ -17,7 +17,6 @@
  ******************************************************************************/
 package com.composent.objectstore;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -118,8 +117,7 @@ public interface IObjectStore {
 		}
 	}
 
-	public static class CollectionValue implements Serializable {
-		private static final long serialVersionUID = 4181123183334087153L;
+	public static class CollectionValue {
 		private int collectionType;
 		private List<Class<?>> elementTypes = new ArrayList<Class<?>>();
 		private Object value;

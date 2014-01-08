@@ -17,7 +17,6 @@
  ******************************************************************************/
 package com.composent.objectstore;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,8 +28,7 @@ import com.composent.objectstore.StoreObjectQuery.Relation.Op;
 
 public abstract class StoreObjectQuery {
 
-	public static class Relation implements Serializable {
-		private static final long serialVersionUID = -4881256442499206204L;
+	public static class Relation {
 
 		public enum Op {
 			EQ, GT, LT, GTE, LTE
@@ -72,9 +70,7 @@ public abstract class StoreObjectQuery {
 
 	}
 
-	public static class Where implements Serializable {
-
-		private static final long serialVersionUID = -8426547704921159194L;
+	public static class Where {
 
 		public static Where equalTo(String identifier, Value tv) {
 			Util.checkArgNotNull(identifier, "identifier");
