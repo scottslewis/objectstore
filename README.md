@@ -1,27 +1,26 @@
-objectstore
+ObjectStore
 ===========
 
-Composent Object Store 
+<h2>Instroduction</h2> 
 
 The ObjectStore is an OSGi-based set of services and APIs to allow java objects to be stored and retrieved to/from a CQL3-based store (Cassandra 2+).   The API is very small/simple and does not use object-relational mapping (ORM).
 
-Example API Usage
+<h2>Example API Usage</h2>
 
-Given an injected instance of IObjectStore:
+Given an injected instance of IObjectStore OSGi service (called 'store' in below).
 
-IObjectStore store = <injected via OSGi declarative services>
-
-Example 
-
+<pre>
 StoreObject storeObject = store.createStoreObject("MyObjectClass");
 // add data
 storeObject.put("username","scottslewis");
 storeObject.put("age",10);
 // store/persist
 storeObject.store();
+</pre>
 
 Retrieval
 
+<pre>
 StoreObjectQuery query = store.createQuery("MyObjectClass");
 // qualify to only get where age = 10
 query.setWhere(new Where(new Relation("age",Op.EQ,new Value(10)));
@@ -33,6 +32,7 @@ for(StoreObject so: storeObjects) {
     System.out.println("username="+so.getString("username"));
     System.out.println("age="+so.getInteger("age"));
 }
+</pre>
 
 StoreObject (com.composent.objectstore.StoreObject) supports a variety of primative types (String, Integer, Long, Float, Double, byte[], UUID) as well as collection types (Set, List, Map). 
 
@@ -42,6 +42,7 @@ Also supported are CQL features for controlling consistency level and lightweigh
 
 There is also a Storeable class (com.composent.objectstore) that allows subclasses that can directly control their storage and revival by overriding superclass methods...for example:
 
+<pre>
 public MyData extends Storable {
 
 private String name;
@@ -67,14 +68,20 @@ protected void reviveFields(StoreObject storeObject) throws StoreException {
 }
 
 }
+</pre>
 
 Then instances can be stored via:
 
+<pre>
 myData.storeTo(store);
+</pre>
 
 and revived by:
 
+<pre>
 Collection<MyData> objects = (Collection<MyData>) new MyData().reviveAll(store);
+...
+</pre>
 
 Both/either of the StoreObject and/or the Storable APIs may be used to store and retrieve objects via CQL.  
 
